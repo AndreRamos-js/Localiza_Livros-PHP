@@ -8,26 +8,35 @@
     <title>Cadastro de Cliente</title>
 </head>
 <body>
-    <h1>Cadastro de Cliente</h1>
+    <div class="container">
+        <h1>Cadastro de Cliente</h1>
 
-    <form method="post" action="../../../biblioteca/actions/cliente/processa-cadastro-cliente.php">
-        <label for="nome_completo">Nome Completo:</label>
-        <input type="text" name="nome_completo" required>
+        <form class="cadastro-form" method="post" action="../../../biblioteca/actions/cliente/processa-cadastro-cliente.php">
+            <div class="form-group">
+                <label for="nome_completo">Nome Completo:</label>
+                <input type="text" class="form-control" name="nome_completo" required>
+            </div>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" required>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" name="email" required>
+            </div>
 
-        <label for="numero_celular">Número Celular:</label>
-        <input type="text" name="numero_celular" required>
+            <div class="form-group">
+                <label for="numero_celular">Número Celular:</label>
+                <input type="text" class="form-control" name="numero_celular" required>
+            </div>
 
-        <label for="endereco">Endereço:</label>
-        <input type="text" name="endereco" required>
+            <div class="form-group">
+                <label for="endereco">Endereço:</label>
+                <input type="text" class="form-control" name="endereco" required>
+            </div>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+            <button type="submit" class="btn btn-secondary btn-block">Cadastrar</button>
+        </form>
 
-    <p><a href="visualizar-clientes.php">Visualizar Clientes</a></p>
-    <p><a href="../../index.php">Voltar para Home</a></p>
-
+        <p class="mt-3"><a href="visualizar-clientes.php" class="btn btn-secondary btn-block">Visualizar Clientes</a></p>
+        <p><a href="../../index.php" class="btn btn-secondary btn-block">Voltar para Home</a></p>
+    </div>
 </body>
 </html>

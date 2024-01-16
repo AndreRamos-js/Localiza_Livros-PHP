@@ -8,55 +8,65 @@
     <title>Criar Locação</title>
 </head>
 <body>
-    <h1>Criar Locação</h1>
+    <div class="container">
+        <h1>Criar Locação</h1>
 
-    <?php
+        <?php
+        require_once '../../../config/database.php';
+        require_once '../../../biblioteca/controllers/LocacaoController.php';
 
-    require_once '../../../config/database.php';
-    require_once '../../../biblioteca/controllers/LocacaoController.php';
+        $db = new Database();
+        $locacaoController = new LocacaoController($db->getConnection());
 
-    $db = new Database();
-    $locacaoController = new LocacaoController($db->getConnection());
+        // Obtem a lista de clientes e livros disponíveis
+        $clientes = $locacaoController->getAllClientes();
+        $livros = $locacaoController->getAllLivros();
+        ?>
 
-    // Obtem a lista de clientes e livros disponíveis
-    $clientes = $locacaoController->getAllClientes();
-    $livros = $locacaoController->getAllLivros();
-    ?>
+        <form class="cadastro-form" method="post" action="../../../biblioteca/actions/locacao/processa-criar-locacao.php">
+            <div class="form-group">
+                <label for="cliente">Cliente:</label>
+                <select class="form-control" name="cliente" required>
+                    <?php foreach ($clientes as $cliente) : ?>
+                        <option value="<?php echo $cliente['id']; ?>"><?php echo $cliente['nome_completo']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-    <form method="post" action="../../../biblioteca/actions/locacao/processa-criar-locacao.php">
-        <label for="cliente">Cliente:</label>
-        <select name="cliente" required>
-            <?php foreach ($clientes as $cliente) : ?>
-                <option value="<?php echo $cliente['id']; ?>"><?php echo $cliente['nome_completo']; ?></option>
-            <?php endforeach; ?>
-        </select>
+            <div class="form-group">
+                <label for="livro">Livro:</label>
+                <select class="form-control" name="livro" required>
+                    <?php foreach ($livros as $livro) : ?>
+                        <option value="<?php echo $livro['id']; ?>"><?php echo $livro['titulo']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="livro">Livro:</label>
-        <select name="livro" required>
-            <?php foreach ($livros as $livro) : ?>
-                <option value="<?php echo $livro['id']; ?>"><?php echo $livro['titulo']; ?></option>
-            <?php endforeach; ?>
-        </select>
+            <div class="form-group">
+                <label for="data_locacao">Data Locação:</label>
+                <input type="date" class="form-control" name="data_locacao" required>
+            </div>
 
-        <label for="data_locacao">Data Locação:</label>
-        <input type="date" name="data_locacao" required>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select class="form-control" name="status" required>
+                    <option value="Retirado">Retirado</option>
+                    <option value="Devolvido">Devolvido</option>
+                    <option value="Atrasado">Atrasado</option>
+                </select>
+            </div>
 
-        <label for="status">Status:</label>
-        <select name="status" required>
-            <option value="Retirado">Retirado</option>
-            <option value="Devolvido">Devolvido</option>
-            <option value="Atrasado">Atrasado</option>
-        </select>
+            <!-- A data de devolução não é obrigatória -->
+            <div class="form-group">
+                <label for="data_devolucao">Data Devolução:</label>
+                <input type="date" class="form-control" name="data_devolucao">
+            </div>
 
-        <!-- A data de devolução não é obrigatória -->
-        <label for="data_devolucao">Data Devolução:</label>
-        <input type="date" name="data_devolucao">
+            <button type="submit" class="btn btn-secondary btn-block">Cadastrar</button>
+        </form>
 
-        <button type="submit">Cadastrar</button>
-    </form>
-
-    <p><a href="visualizar-locacoes.php">Visualizar Locações</a></p>
-    <p><a href="../../index.php">Voltar para Home</a></p>
-
+        <p class="mt-3"><a href="visualizar-locacoes.php" class="btn btn-secondary btn-block">Visualizar Locações</a></p>
+        <p><a href="../../index.php" class="btn btn-secondary btn-block">Voltar para Home</a></p>
+    </div>
 </body>
 </html>

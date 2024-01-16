@@ -8,23 +8,30 @@
     <title>Cadastro de Livro</title>
 </head>
 <body>
-    <h1>Cadastro de Livro</h1>
+    <div class="container">
+        <h1>Cadastro de Livro</h1>
 
-    <form method="post" action="../../../biblioteca/actions/livro/processa-cadastro-livro.php">
-        <label for="titulo">Título:</label>
-        <input type="text" name="titulo" required>
+        <form class="cadastro-form" method="post" action="../../../biblioteca/actions/livro/processa-cadastro-livro.php">
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input type="text" class="form-control" name="titulo" required>
+            </div>
 
-        <label for="autor">Autor:</label>
-        <input type="text" name="autor" required>
+            <div class="form-group">
+                <label for="autor">Autor:</label>
+                <input type="text" class="form-control" name="autor" required>
+            </div>
 
-        <label for="quantidade_disponivel">Quantidade Disponível:</label>
-        <input type="number" name="quantidade_disponivel" required>
+            <div class="form-group">
+                <label for="quantidade_disponivel">Quantidade Disponível:</label>
+                <input type="number" class="form-control" name="quantidade_disponivel" required>
+            </div>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+            <button type="submit" class="btn btn-secondary btn-block">Cadastrar</button>
+        </form>
 
-    <p><a href="visualizar-livros.php">Visualizar Livros</a></p>
-    <p><a href="../../index.php">Voltar para Home</a></p>
-
+        <p class="mt-3"><a href="visualizar-livros.php" class="btn btn-secondary btn-block">Visualizar Livros</a></p>
+        <p><a href="../../index.php" class="btn btn-secondary btn-block">Voltar para Home</a></p>
+    </div>
 </body>
 </html>

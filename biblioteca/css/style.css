@@ -6,25 +6,160 @@
 }
 
 body {
+    background: linear-gradient(to bottom, #8f440f, #69431e);
     font-family: Arial, sans-serif;
-    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    padding: 20px 50px;
+    background-color: #422b14;
+    border-radius: 20px;
+    text-align: center;
 }
 
 h1 {
-    color: #333;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.category {
+    font-size: 20px;
+    color: #fff;
 }
 
 ul {
     list-style-type: none;
-    padding: 0;
+    padding: 10px 0;
 }
 
 li {
     margin-bottom: 10px;
 }
 
-a {
+
+a, button {
+    width: 100%;
     text-decoration: none;
-    color: #0066cc;
+    color: #fff;
+    background: linear-gradient(to bottom, #A52A2A, #8B4513);
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
     font-weight: bold;
+    transition: background 0.3s ease;
+    border: none;
+}
+
+a:hover, button:hover {
+    background: linear-gradient(to bottom, #8B4513, #654321);
+}
+
+.a-editar, .button-deletar {
+    width: auto;
+    height: auto;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(to bottom, #A52A2A, #8B4513);
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    border: none;
+    font-size: 14px;
+}
+
+.a-deletar:hover, .button-deletar:hover {
+    background: linear-gradient(to bottom, #8B4513, #654321);
+}
+
+form.cadastro-form {
+    max-width: 400px; /* Limitando a largura do formulário */
+    margin: 0 auto; /* Centralizando o formulário */
+}
+
+form.cadastro-form .form-group {
+    margin-bottom: 15px; /* Espaçamento entre os campos */
+    color: #fff;
+}
+
+form.cadastro-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px; /* Espaçamento superior do campo */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form.cadastro-form button {
+    width: 100%;
+    background: linear-gradient(to bottom, #A52A2A, #8B4513);
+    color: #fff;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+form.cadastro-form button:hover {
+    background: linear-gradient(to bottom, #8B4513, #654321);
+}
+
+a.btn-secondary.btn-block {
+    width: 100%;
+    background: linear-gradient(to bottom, #A52A2A, #8B4513);
+    color: #fff;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    text-decoration: none; /* Removendo sublinhado do link */
+    text-align: center; /* Centralizando o texto */
+    margin-top: 15px; /* Espaçamento superior do botão */
+    transition: background 0.3s ease;
+}
+
+a.btn-secondary.btn-block:hover {
+    background: linear-gradient(to bottom, #8B4513, #654321);
+}
+
+input.form-control,
+select.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #fff;
+    padding: 10px;
+    color: #fff;
+}
+
+th {
+    background-color: #A52A2A;
+}
+
+tr:nth-child(even) {
+    background-color: #654321;
+}
+
+tr:hover {
+    background-color: #8B4513;
 }

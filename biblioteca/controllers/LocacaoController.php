@@ -21,7 +21,6 @@ class LocacaoController {
         $stmt->bindParam(':dataLocacao', $dataLocacao);
         $stmt->bindParam(':status', $status);
     
-        // Certifique-se de que a data de devolução não esteja vazia antes de atribuir
         $dataDevolucao = !empty($dataDevolucao) ? $dataDevolucao : null;
         $stmt->bindParam(':dataDevolucao', $dataDevolucao, PDO::PARAM_STR);
     
@@ -93,16 +92,18 @@ class LocacaoController {
 
     
     // Editar os dados da locação
-    public function update($id, $idCliente, $idLivro, $dataLocacao, $status, $dataDevolucao) {
-        $query = "UPDATE " . $this->table . " SET id_cliente = :idCliente, id_livro = :idLivro, data_locacao = :dataLocacao, status = :status, data_devolucao = :dataDevolucao WHERE id = :id";
+    public function update($cliente, $livro, $dataLocacao, $status, $dataDevolucao) {
+        $query = "UPDATE " . $this->table . " (id_cliente, id_livro, data_locacao, status, data_devolucao) VALUES (:cliente, :livro, :dataLocacao, :status, :dataDevolucao)";
+    
         $stmt = $this->db->prepare($query);
-        
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':idCliente', $idCliente);
-        $stmt->bindParam(':idLivro', $idLivro);
+    
+        $stmt->bindParam(':cliente', $cliente);
+        $stmt->bindParam(':livro', $livro);
         $stmt->bindParam(':dataLocacao', $dataLocacao);
         $stmt->bindParam(':status', $status);
-        $stmt->bindParam(':dataDevolucao', $dataDevolucao);
+    
+        $dataDevolucao = !empty($dataDevolucao) ? $dataDevolucao : null;
+        $stmt->bindParam(':dataDevolucao', $dataDevolucao, PDO::PARAM_STR);
     
         if ($stmt->execute()) {
             return true;

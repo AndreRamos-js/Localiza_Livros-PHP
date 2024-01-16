@@ -10,56 +10,58 @@
 </head>
 
 <body>
-    <h1>Visualizar Locações</h1>
+    <div class="container">
+        <h1>Visualizar Locações</h1>
 
-    <p><a href="../../index.php">Voltar para Home</a></p>
-    <p><a href="criar-locacao.php">Criar Nova Locação</a></p>
+        <p><a href="../../index.php" class="btn btn-secondary btn-block">Voltar para Home</a></p>
+        <p class="mt-3"><a href="criar-locacao.php" class="btn btn-secondary btn-block">Criar Locação</a></p>
 
-    <?php
-    // Inclua os arquivos necessários e instancie o LocacaoController
-    require_once '../../../config/database.php';
-    require_once '../../../biblioteca/controllers/LocacaoController.php';
+        <?php
+        require_once '../../../config/database.php';
+        require_once '../../../biblioteca/controllers/LocacaoController.php';
 
-    $db = new Database();
-    $locacaoController = new LocacaoController($db->getConnection());
+        $db = new Database();
+        $locacaoController = new LocacaoController($db->getConnection());
 
-    // Obtenha a lista de locações
-    $locacoes = $locacaoController->getAll();
+        // Obtem a lista de locações
+        $locacoes = $locacaoController->getAll();
 
-    if (empty($locacoes)) {
-        echo "<p>Não há locações feitas.</p>";
-    } else {
-    ?>
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>Nome do Cliente</th>
-                <th>Título Livro Alugado</th>
-                <th>Data Locação</th>
-                <th>Status</th>
-                <th>Data Devolução</th>
-            </tr>
-            <?php foreach ($locacoes as $locacao) : ?>
+        if (empty($locacoes)) {
+            echo "<p>Não há locações cadastradas.</p>";
+        } else {
+        ?>
+            <table border="1">
                 <tr>
-                    <td><?php echo $locacao['id']; ?></td>
-                    <td><?php echo $locacaoController->getNomeClienteById($locacao['id_cliente']); ?></td>
-                    <td><?php echo $locacaoController->getTituloLivroById($locacao['id_livro']); ?></td>
-                    <td><?php echo $locacao['data_locacao']; ?></td>
-                    <td><?php echo $locacao['status']; ?></td>
-                    <td><?php echo $locacao['data_devolucao']; ?></td>
-                    <td>
-                        <a href="editar-locacao.php?id=<?php echo $locacao['id']; ?>">Editar</a>
-                        <form action="../../../biblioteca/actions/locacao/processa-deletar-locacao.php" method="post" style="display: inline-block;">
-                            <input type="hidden" name="id_locacao" value="<?php echo $locacao['id']; ?>">
-                            <button type="submit" onclick="return confirm('Tem certeza que deseja deletar esta locação?')">Deletar</button>
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Livro</th>
+                    <th>Data Locação</th>
+                    <th>Status</th>
+                    <th>Data Devolução</th>
+                    <th>Ações</th>
                 </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php
-    }
-    ?>
+                <?php foreach ($locacoes as $locacao) : ?>
+                    <tr>
+                        <td><?php echo $locacao['id']; ?></td>
+                        <td><?php echo $locacaoController->getNomeClienteById($locacao['id_cliente']); ?></td>
+                        <td><?php echo $locacaoController->getTituloLivroById($locacao['id_livro']); ?></td>
+                        <td><?php echo $locacao['data_locacao']; ?></td>
+                        <td><?php echo $locacao['status']; ?></td>
+                        <td><?php echo $locacao['data_devolucao']; ?></td>
+                        <td>
+                            <a class="a-editar" href="editar-locacao.php?id=<?php echo $locacao['id']; ?>">Editar</a>
+                            <form action="../../../biblioteca/actions/locacao/processa-deletar-locacao.php" method="post" style="display: inline-block;">
+                                <input type="hidden" name="id_locacao" value="<?php echo $locacao['id']; ?>">
+                                <button class="button-deletar" type="submit" onclick="return confirm('Tem certeza que deseja deletar a locação ID: <?php echo $locacao['id']; ?>?')">Deletar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php
+        }
+        ?>
+    </div>
 </body>
 
 </html>

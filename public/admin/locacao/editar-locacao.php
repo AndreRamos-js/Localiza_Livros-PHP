@@ -8,73 +8,80 @@
     <title>Editar Locação</title>
 </head>
 <body>
-    <h1>Editar Locação</h1>
-
     <?php
-    // Adicione as dependências e crie instâncias necessárias
     require_once '../../../config/database.php';
     require_once '../../../biblioteca/controllers/LocacaoController.php';
-    require_once '../../../biblioteca/controllers/ClienteController.php';
-    require_once '../../../biblioteca/controllers/LivroController.php';
 
-    $db = new Database();
-    $locacaoController = new LocacaoController($db->getConnection());
-    $clienteController = new ClienteController($db->getConnection());
-    $livroController = new LivroController($db->getConnection());
-
-    // Verifique se o ID da locação foi fornecido na URL
+    // Verifica se o ID da locação foi passado como parâmetro
     if (isset($_GET['id'])) {
         $idLocacao = $_GET['id'];
+        $db = new Database();
+        $locacaoController = new LocacaoController($db->getConnection());
 
-        // Obtenha os detalhes da locação
+        // Obtém os detalhes da locação pelo ID
         $locacao = $locacaoController->getById($idLocacao);
 
-        // Obtenha a lista de clientes e livros
-        $clientes = $clienteController->getAll();
-        $livros = $livroController->getAll();
+        // Obtem a lista de clientes e livros disponíveis
+        $clientes = $locacaoController->getAllClientes();
+        $livros = $locacaoController->getAllLivros();
+    } else {
+        echo "ID da locação não fornecido.";
+        exit();
     }
     ?>
 
-    <form method="post" action="../../../biblioteca/actions/locacao/processa-editar-locacao.php">
-        <!-- Campos ocultos para enviar o ID da locação -->
-        <input type="hidden" name="id_locacao" value="<?php echo $locacao['id']; ?>">
+    <div class="container">
+        <h1>Editar Locação</h1>
 
-        <label for="id_cliente">Cliente:</label>
-        <select name="id_cliente">
-            <?php foreach ($clientes as $cliente) : ?>
-                <option value="<?php echo $cliente['id']; ?>" <?php echo ($cliente['id'] == $locacao['id_cliente']) ? 'selected' : ''; ?>>
-                    <?php echo $cliente['nome_completo']; ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <form class="cadastro-form" method="post" action="../../../biblioteca/actions/locacao/processa-editar-locacao.php">
+            <input type="hidden" name="id_locacao" value="<?php echo $locacao['id']; ?>">
 
-        <label for="id_livro">Livro:</label>
-        <select name="id_livro">
-            <?php foreach ($livros as $livro) : ?>
-                <option value="<?php echo $livro['id']; ?>" <?php echo ($livro['id'] == $locacao['id_livro']) ? 'selected' : ''; ?>>
-                    <?php echo $livro['titulo']; ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+            <div class="form-group">
+                <label for="cliente">Cliente:</label>
+                <select class="form-control" name="cliente" required>
+                    <?php foreach ($clientes as $cliente) : ?>
+                        <option value="<?php echo $cliente['id']; ?>" <?php echo ($cliente['id'] == $locacao['id_cliente']) ? 'selected' : ''; ?>>
+                            <?php echo $cliente['nome_completo']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="data_locacao">Data Locação:</label>
-        <input type="date" name="data_locacao" value="<?php echo $locacao['data_locacao']; ?>" required>
+            <div class="form-group">
+                <label for="livro">Livro:</label>
+                <select class="form-control" name="livro" required>
+                    <?php foreach ($livros as $livro) : ?>
+                        <option value="<?php echo $livro['id']; ?>" <?php echo ($livro['id'] == $locacao['id_livro']) ? 'selected' : ''; ?>>
+                            <?php echo $livro['titulo']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="status">Status:</label>
-        <select name="status" required>
-            <option value="Retirado" <?php echo ($locacao['status'] === 'Retirado') ? 'selected' : ''; ?>>Retirado</option>
-            <option value="Devolvido" <?php echo ($locacao['status'] === 'Devolvido') ? 'selected' : ''; ?>>Devolvido</option>
-            <option value="Atrasado" <?php echo ($locacao['status'] === 'Atrasado') ? 'selected' : ''; ?>>Atrasado</option>
-        </select>
+            <div class="form-group">
+                <label for="data_locacao">Data Locação:</label>
+                <input class="form-control" type="date" name="data_locacao" value="<?php echo $locacao['data_locacao']; ?>" required>
+            </div>
 
-        <label for="data_devolucao">Data Devolução:</label>
-        <input type="date" name="data_devolucao" value="<?php echo $locacao['data_devolucao']; ?>">
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select class="form-control" name="status" required>
+                    <option value="Retirado" <?php echo ($locacao['status'] == 'Retirado') ? 'selected' : ''; ?>>Retirado</option>
+                    <option value="Devolvido" <?php echo ($locacao['status'] == 'Devolvido') ? 'selected' : ''; ?>>Devolvido</option>
+                    <option value="Atrasado" <?php echo ($locacao['status'] == 'Atrasado') ? 'selected' : ''; ?>>Atrasado</option>
+                </select>
+            </div>
 
-        <!-- Adicione outros campos conforme necessário -->
+            <!-- A data de devolução não é obrigatória -->
+            <div class="form-group">
+                <label for="data_devolucao">Data Devolução:</label>
+                <input type="date" class="form-control" name="data_devolucao">
+            </div>
 
-        <button type="submit">Salvar Alterações</button>
-    </form>
+            <button type="submit" class="btn btn-secondary btn-block">Salvar Alterações</button>
+        </form>
 
-    <p><a href="visualizar-locacoes.php">Voltar para Visualizar Locações</a></p>
+        <p class="mt-3"><a href="visualizar-locacoes.php" class="btn btn-secondary btn-block">Voltar para Visualizar Locações</a></p>
+    </div>
 </body>
 </html>

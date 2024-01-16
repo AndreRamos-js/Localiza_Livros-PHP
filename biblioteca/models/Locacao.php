@@ -47,8 +47,6 @@ class Locacao {
     public function getDataDevolucao() {
         return $this->dataDevolucao;
     }
-
-    // Outros métodos se necessário...
 }
 
 ?>

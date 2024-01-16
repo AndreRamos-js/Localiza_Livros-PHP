@@ -10,6 +10,7 @@ class ClienteController {
         $this->db = $db;
     }
 
+    // Cadastrar o cliente
     public function create($cliente) {
         $query = "INSERT INTO " . $this->table . " (nome_completo, email, numero_celular, endereco) VALUES (:nome, :email, :numero, :endereco)";
 
@@ -27,12 +28,15 @@ class ClienteController {
         return false;
     }
 
+    // Visualizar os dados do cliente
     public function getAll() {
         $query = "SELECT * FROM " . $this->table;
         $stmt = $this->db->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    // Editar o cliente
     public function update($id, $cliente) {
         // Certifica-se de que não é possível alterar o ID
         unset($cliente['id']);
@@ -53,6 +57,7 @@ class ClienteController {
         return false;
     }
 
+    // Excluir o cliente
     public function delete($id) {
         $query = "DELETE FROM " . $this->table . " WHERE id = :id";
         $stmt = $this->db->prepare($query);

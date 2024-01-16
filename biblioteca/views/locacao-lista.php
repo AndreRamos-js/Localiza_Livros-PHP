@@ -1,5 +1,9 @@
 <!-- HTML para exibir a lista de locações -->
 <h2>Lista de Locações</h2>
+
+<?php if (empty($locacoes)) : ?>
+    <p>Não há locações feitas.</p>
+<?php else : ?>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -24,3 +28,4 @@
         </tr>
     <?php endforeach; ?>
 </table>
+<?php endif; ?>

@@ -10,6 +10,7 @@ class LivroController {
         $this->db = $db;
     }
 
+    // Cadastrar o livro
     public function create($livro) {
         $query = "INSERT INTO " . $this->table . " (titulo, autor, quantidade_disponivel) VALUES (:titulo, :autor, :quantidade)";
 
@@ -26,12 +27,15 @@ class LivroController {
         return false;
     }
 
+    // Visualizar os dados do livro
     public function getAll() {
         $query = "SELECT * FROM " . $this->table;
         $stmt = $this->db->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    
+    // Editar o livro
     public function update($id, $livro) {
         // Certifica-se de que não é possível alterar o ID
         unset($livro['id']);
@@ -51,6 +55,7 @@ class LivroController {
         return false;
     }
 
+    // Excluir o livro
     public function delete($id) {
         $query = "DELETE FROM " . $this->table . " WHERE id = :id";
         $stmt = $this->db->prepare($query);

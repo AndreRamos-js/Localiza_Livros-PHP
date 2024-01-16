@@ -10,6 +10,7 @@ class LocacaoController {
         $this->db = $db;
     }
 
+    // Cadastrar a locação
     public function create($locacao) {
         $query = "INSERT INTO " . $this->table . " (id_cliente, id_livro, nome_cliente, titulo_livro_alugado, data_locacao, status, data_devolucao) 
                   VALUES (:idCliente, :idLivro, :nomeCliente, :tituloLivro, :dataLocacao, :status, :dataDevolucao)";
@@ -31,12 +32,15 @@ class LocacaoController {
         return false;
     }
 
+    // Visualizar os dados da locação
     public function getAll() {
         $query = "SELECT * FROM " . $this->table;
         $stmt = $this->db->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    
+    // Editar os dados da locação
     public function update($id, $locacao) {
         // Certifica-se de que não é possível alterar os IDs
         unset($locacao['id']);
@@ -59,6 +63,7 @@ class LocacaoController {
         return false;
     }
 
+    // Excluir a locação
     public function delete($id) {
         $query = "DELETE FROM " . $this->table . " WHERE id = :id";
         $stmt = $this->db->prepare($query);

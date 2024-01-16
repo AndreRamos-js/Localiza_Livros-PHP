@@ -23,8 +23,6 @@ class Livro {
     public function getQuantidadeDisponivel() {
         return $this->quantidadeDisponivel;
     }
-
-    // Outros métodos se necessário...
 }
 
 ?>

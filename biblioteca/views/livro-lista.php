@@ -1,5 +1,9 @@
 <!-- HTML para exibir a lista de livros -->
 <h2>Lista de Livros</h2>
+
+<?php if (empty($livros)) : ?>
+    <p>Não há livros cadastrados.</p>
+<?php else : ?>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -16,3 +20,4 @@
         </tr>
     <?php endforeach; ?>
 </table>
+<?php endif; ?>

@@ -34,6 +34,7 @@ $clientes = $clienteController->getAll();
 $livros = $livroController->getAll();
 $locacoes = $locacaoController->getAll();
 
+/*
 // Exemplo de edição de cliente
 $clienteController = new ClienteController($conn);
 $novosDadosCliente = [
@@ -53,6 +54,7 @@ $novosDadosLivro = [
 ];
 $livroController->update(25, $novosDadosLivro); // 1 é o ID do livro a ser editado
 
+
 // Exemplo de edição de locação
 $locacaoController = new LocacaoController($conn);
 $novosDadosLocacao = [
@@ -62,7 +64,7 @@ $novosDadosLocacao = [
     'data_devolucao' => '2024-01-25'
 ];
 $locacaoController->update(21, $novosDadosLocacao); // 1 é o ID da locação a ser editada
-
+*/
 
 /*
 // Exemplo de exclusão de cliente
@@ -75,7 +77,7 @@ $livroController->delete(26); // 1 é o ID do livro a ser excluído
 
 // Exemplo de exclusão de locação
 $locacaoController = new LocacaoController($conn);
-$locacaoController->delete(22);
+$locacaoController->delete(22); // 1 é o ID da locação a ser excluída
 */
 
 // Carregar as views

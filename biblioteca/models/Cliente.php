@@ -29,8 +29,6 @@ class Cliente {
     public function getEndereco() {
         return $this->endereco;
     }
-
-    // Outros métodos se necessário...
 }
 
 ?>

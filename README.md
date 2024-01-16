@@ -54,4 +54,4 @@ Desde já, obrigado pela oportunidade!
 
 ## Licença
 
-Este projeto está sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está sob a Licença GNU General Public License v3.0 - veja o arquivo [LICENSE](LICENSE) para detalhes.

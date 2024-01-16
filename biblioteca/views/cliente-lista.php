@@ -14,11 +14,11 @@
         </tr>
         <?php foreach ($clientes as $cliente) : ?>
             <tr>
-                <td><?php echo $cliente['id']; ?></td>
-                <td><?php echo $cliente['nome_completo']; ?></td>
-                <td><?php echo $cliente['email']; ?></td>
-                <td><?php echo $cliente['numero_celular']; ?></td>
-                <td><?php echo $cliente['endereco']; ?></td>
+                <td><?php echo htmlentities($cliente['id']); ?></td>
+                <td><?php echo htmlentities($cliente['nome_completo']); ?></td>
+                <td><?php echo htmlentities($cliente['email']); ?></td>
+                <td><?php echo htmlentities($cliente['numero_celular']); ?></td>
+                <td><?php echo htmlentities($cliente['endereco']); ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

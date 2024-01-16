@@ -35,7 +35,8 @@ class LocacaoController {
     // Visualizar os dados da locação
     public function getAll() {
         $query = "SELECT * FROM " . $this->table;
-        $stmt = $this->db->query($query);
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

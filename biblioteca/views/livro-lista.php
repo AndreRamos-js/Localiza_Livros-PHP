@@ -1,23 +1,31 @@
-<!-- HTML para exibir a lista de livros -->
-<h2>Lista de Livros</h2>
+<!-- HTML para exibir a lista de locações -->
+<h2>Lista de Locações</h2>
 
-<?php if (empty($livros)) : ?>
-    <p>Não há livros cadastrados.</p>
+<?php if (empty($locacoes)) : ?>
+    <p>Não há locações feitas.</p>
 <?php else : ?>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Autor</th>
-        <th>Quantidade Disponível</th>
-    </tr>
-    <?php foreach ($livros as $livro) : ?>
+    <table border="1">
         <tr>
-            <td><?php echo $livro['id']; ?></td>
-            <td><?php echo $livro['titulo']; ?></td>
-            <td><?php echo $livro['autor']; ?></td>
-            <td><?php echo $livro['quantidade_disponivel']; ?></td>
+            <th>ID</th>
+            <th>ID Cliente</th>
+            <th>ID Livro</th>
+            <th>Nome do Cliente</th>
+            <th>Título Livro Alugado</th>
+            <th>Data Locação</th>
+            <th>Status</th>
+            <th>Data Devolução</th>
         </tr>
-    <?php endforeach; ?>
-</table>
+        <?php foreach ($locacoes as $locacao) : ?>
+            <tr>
+                <td><?php echo htmlentities($locacao['id']); ?></td>
+                <td><?php echo htmlentities($locacao['id_cliente']); ?></td>
+                <td><?php echo htmlentities($locacao['id_livro']); ?></td>
+                <td><?php echo htmlentities($locacao['nome_cliente']); ?></td>
+                <td><?php echo htmlentities($locacao['titulo_livro_alugado']); ?></td>
+                <td><?php echo htmlentities($locacao['data_locacao']); ?></td>
+                <td><?php echo htmlentities($locacao['status']); ?></td>
+                <td><?php echo htmlentities($locacao['data_devolucao']); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 <?php endif; ?>

@@ -11,10 +11,13 @@ class LivroController {
     }
 
     // Cadastrar o livro
-    public function create($livro) {
+    public function create($titulo, $autor, $quantidade) {
         $query = "INSERT INTO " . $this->table . " (titulo, autor, quantidade_disponivel) VALUES (:titulo, :autor, :quantidade)";
 
         $stmt = $this->db->prepare($query);
+
+        $livro = new Livro($titulo, $autor, $quantidade);
+
 
         $stmt->bindParam(':titulo', $livro->getTitulo());
         $stmt->bindParam(':autor', $livro->getAutor());
@@ -35,24 +38,29 @@ class LivroController {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getById($id) {
+        $query = "SELECT * FROM " . $this->table . " WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     
     // Editar o livro
-    public function update($id, $livro) {
-        // Certifica-se de que não é possível alterar o ID
-        unset($livro['id']);
-
-        $query = "UPDATE " . $this->table . " SET titulo = :titulo, autor = :autor, quantidade_disponivel = :quantidade WHERE id = :id";
+    public function update($id, $titulo, $autor, $quantidadeDisponivel) {
+        $query = "UPDATE " . $this->table . " SET titulo = :titulo, autor = :autor, quantidade_disponivel = :quantidadeDisponivel WHERE id = :id";
         $stmt = $this->db->prepare($query);
-        
+    
         $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':titulo', $livro['titulo']);
-        $stmt->bindParam(':autor', $livro['autor']);
-        $stmt->bindParam(':quantidade', $livro['quantidade_disponivel']);
-
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':autor', $autor);
+        $stmt->bindParam(':quantidadeDisponivel', $quantidadeDisponivel);
+    
         if ($stmt->execute()) {
             return true;
         }
-
+    
         return false;
     }
 

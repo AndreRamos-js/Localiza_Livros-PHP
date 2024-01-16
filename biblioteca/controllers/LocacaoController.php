@@ -11,24 +11,24 @@ class LocacaoController {
     }
 
     // Cadastrar a locação
-    public function create($locacao) {
-        $query = "INSERT INTO " . $this->table . " (id_cliente, id_livro, nome_cliente, titulo_livro_alugado, data_locacao, status, data_devolucao) 
-                  VALUES (:idCliente, :idLivro, :nomeCliente, :tituloLivro, :dataLocacao, :status, :dataDevolucao)";
-
+    public function create($cliente, $livro, $dataLocacao, $status, $dataDevolucao) {
+        $query = "INSERT INTO " . $this->table . " (id_cliente, id_livro, data_locacao, status, data_devolucao) VALUES (:cliente, :livro, :dataLocacao, :status, :dataDevolucao)";
+    
         $stmt = $this->db->prepare($query);
-
-        $stmt->bindParam(':idCliente', $locacao->getIdCliente());
-        $stmt->bindParam(':idLivro', $locacao->getIdLivro());
-        $stmt->bindParam(':nomeCliente', $locacao->getnomeCliente());
-        $stmt->bindParam(':tituloLivro', $locacao->getTituloLivroAlugado());
-        $stmt->bindParam(':dataLocacao', $locacao->getDataLocacao());
-        $stmt->bindParam(':status', $locacao->getStatus());
-        $stmt->bindParam(':dataDevolucao', $locacao->getDataDevolucao());
-
+    
+        $stmt->bindParam(':cliente', $cliente);
+        $stmt->bindParam(':livro', $livro);
+        $stmt->bindParam(':dataLocacao', $dataLocacao);
+        $stmt->bindParam(':status', $status);
+    
+        // Certifique-se de que a data de devolução não esteja vazia antes de atribuir
+        $dataDevolucao = !empty($dataDevolucao) ? $dataDevolucao : null;
+        $stmt->bindParam(':dataDevolucao', $dataDevolucao, PDO::PARAM_STR);
+    
         if ($stmt->execute()) {
             return true;
         }
-
+    
         return false;
     }
 
@@ -40,27 +40,74 @@ class LocacaoController {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getById($id) {
+        $query = "SELECT * FROM " . $this->table . " WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllClientes() {
+        $query = "SELECT id, nome_completo FROM cliente";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public function getAllLivros() {
+        $query = "SELECT id, titulo FROM livro WHERE quantidade_disponivel > 0";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getNomeClienteById($idCliente) {
+        $query = "SELECT nome_completo FROM cliente WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $idCliente);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return ($result) ? $result['nome_completo'] : 'Cliente não encontrado';
+    }
+
+    public function getTituloLivroById($idLivro) {
+        $query = "SELECT titulo FROM livro WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $idLivro);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return ($result) ? $result['titulo'] : 'Livro não encontrado';
+    }
+
+    public function getLocacaoById($id) {
+        $query = "SELECT * FROM locacao WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     
     // Editar os dados da locação
-    public function update($id, $locacao) {
-        // Certifica-se de que não é possível alterar os IDs
-        unset($locacao['id']);
-        unset($locacao['id_cliente']);
-        unset($locacao['id_livro']);
-
-        $query = "UPDATE " . $this->table . " SET nome_cliente = :nomeCliente, data_locacao = :dataLocacao, status = :status, data_devolucao = :dataDevolucao WHERE id = :id";
+    public function update($id, $idCliente, $idLivro, $dataLocacao, $status, $dataDevolucao) {
+        $query = "UPDATE " . $this->table . " SET id_cliente = :idCliente, id_livro = :idLivro, data_locacao = :dataLocacao, status = :status, data_devolucao = :dataDevolucao WHERE id = :id";
         $stmt = $this->db->prepare($query);
         
         $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':nomeCliente', $locacao['nome_cliente']);
-        $stmt->bindParam(':dataLocacao', $locacao['data_locacao']);
-        $stmt->bindParam(':status', $locacao['status']);
-        $stmt->bindParam(':dataDevolucao', $locacao['data_devolucao']);
-
+        $stmt->bindParam(':idCliente', $idCliente);
+        $stmt->bindParam(':idLivro', $idLivro);
+        $stmt->bindParam(':dataLocacao', $dataLocacao);
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':dataDevolucao', $dataDevolucao);
+    
         if ($stmt->execute()) {
             return true;
         }
-
+    
         return false;
     }
 

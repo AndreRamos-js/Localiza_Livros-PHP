@@ -14,6 +14,7 @@ class Cliente {
         $this->endereco = $endereco;
     }
 
+    // Métodos get
     public function getNomeCompleto() {
         return $this->nomeCompleto;
     }

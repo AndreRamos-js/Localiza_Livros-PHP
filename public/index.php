@@ -36,18 +36,33 @@ $locacoes = $locacaoController->getAll();
 
 // Exemplo de edição de cliente
 $clienteController = new ClienteController($conn);
-$novosDadosCliente = ['nome_completo' => 'Novo Nome', 'email' => 'novo@email.com', 'numero_celular' => '987654321', 'endereco' => 'Nova Rua, 456'];
+$novosDadosCliente = [
+    'nome_completo' => 'Novo Nome',
+    'email' => 'novo@email.com',
+    'numero_celular' => '987654321',
+    'endereco' => 'Nova Rua, 456'
+];
 $clienteController->update(242, $novosDadosCliente); // 1 é o ID do cliente a ser editado
 
 // Exemplo de edição de livro
 $livroController = new LivroController($conn);
-$novosDadosLivro = ['titulo' => 'Novo Título', 'autor' => 'Novo Autor', 'quantidade_disponivel' => 5];
+$novosDadosLivro = [
+    'titulo' => 'Novo Título',
+    'autor' => 'Novo Autor',
+    'quantidade_disponivel' => 5
+];
 $livroController->update(25, $novosDadosLivro); // 1 é o ID do livro a ser editado
 
 // Exemplo de edição de locação
 $locacaoController = new LocacaoController($conn);
-$novosDadosLocacao = ['id_cliente' => 2, 'id_livro' => 2, 'titulo_livro_alugado' => 'Novo Livro', 'data_locacao' => '2024-01-20', 'status' => 'Devolvido', 'data_devolucao' => '2024-01-25'];
+$novosDadosLocacao = [
+    'nome_cliente' => 'Cliente123',
+    'data_locacao' => '2024-01-20',
+    'status' => 'Devolvido',
+    'data_devolucao' => '2024-01-25'
+];
 $locacaoController->update(21, $novosDadosLocacao); // 1 é o ID da locação a ser editada
+
 
 /*
 // Exemplo de exclusão de cliente

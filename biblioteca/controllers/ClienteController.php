@@ -29,12 +29,8 @@ class ClienteController {
 
     public function getAll() {
         $query = "SELECT * FROM " . $this->table;
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();  // Libera os recursos associados à consulta
-    
-        return $result;
+        $stmt = $this->db->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function update($id, $cliente) {

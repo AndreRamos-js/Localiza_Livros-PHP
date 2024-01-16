@@ -33,25 +33,21 @@ class LocacaoController {
 
     public function getAll() {
         $query = "SELECT * FROM " . $this->table;
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();  // Libera os recursos associados à consulta
-    
-        return $result;
+        $stmt = $this->db->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function update($id, $locacao) {
-        // Certifica-se de que não é possível alterar o ID
+        // Certifica-se de que não é possível alterar os IDs
         unset($locacao['id']);
+        unset($locacao['id_cliente']);
+        unset($locacao['id_livro']);
 
-        $query = "UPDATE " . $this->table . " SET id_cliente = :idCliente, id_livro = :idLivro, titulo_livro_alugado = :tituloLivro, data_locacao = :dataLocacao, status = :status, data_devolucao = :dataDevolucao WHERE id = :id";
+        $query = "UPDATE " . $this->table . " SET nome_cliente = :nomeCliente, data_locacao = :dataLocacao, status = :status, data_devolucao = :dataDevolucao WHERE id = :id";
         $stmt = $this->db->prepare($query);
         
         $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':idCliente', $locacao['id_cliente']);
-        $stmt->bindParam(':idLivro', $locacao['id_livro']);
-        $stmt->bindParam(':tituloLivro', $locacao['titulo_livro_alugado']);
+        $stmt->bindParam(':nomeCliente', $locacao['nome_cliente']);
         $stmt->bindParam(':dataLocacao', $locacao['data_locacao']);
         $stmt->bindParam(':status', $locacao['status']);
         $stmt->bindParam(':dataDevolucao', $locacao['data_devolucao']);

@@ -17,14 +17,11 @@ Desde já, obrigado pela oportunidade!
 **Front-end:**
    - HTML
    - CSS
+   - 
+**Servidor Web:**
+   - WampServer
 
-**Framework CSS (opcional):**
-   - Bootstrap
-
-**Servidor Web (opcional):**
-   - WAMP ou XAMPP
-
-**Controle de Versão (opcional):**
+**Controle de Versão:**
    - Git
 
 ## Estrutura do Projeto
@@ -44,7 +41,9 @@ Desde já, obrigado pela oportunidade!
    - Certifique-se de ter o PHP e o MySQL instalados.
 
 **Banco de Dados:**
-   - Importe o arquivo `database.sql` para criar as tabelas necessárias.
+   - Importe o arquivo [database.sql](database.sql) para criar as tabelas necessárias.
+
+     -PS: O arquivo [db.sql](db.sql) contem o script para criar o esquema no banco de dados MySQL.
 
 **Configuração do Banco de Dados:**
    - Edite `config/database.php` com as configurações do seu banco de dados.

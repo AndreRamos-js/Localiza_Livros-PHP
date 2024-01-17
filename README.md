@@ -32,7 +32,7 @@ Desde já, obrigado pela oportunidade!
 - **public/admin/cliente:** Contém páginas relacionadas à gestão de clientes (cadastro, visualização, edição e exclusão).
 - **public/admin/livro:** Contém páginas relacionadas à gestão de livros(cadastro, visualização, edição e exclusão).
 - **public/admin/locacao:** Contém páginas relacionadas à gestão de locações(cadastro, visualização, edição e exclusão).
-- **config:** Configurações, como a conexão com o banco de dados.
+- **config:** Configurações, como a conexão com o banco de dados e script para que crie o esquema no MySQL caso necessario.
 - **biblioteca/controllers:** Controladores PHP para a lógica de negócios.
 - **biblioteca/actions:** Contém scripts PHP que processam ações específicas (cadastro, edição e exclusão).
 - **biblioteca/css:** Arquivos de estilo CSS.

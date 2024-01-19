@@ -13,7 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             // Código para excluir o cliente do banco de dados
             $clienteController->delete($idCliente);
-            // Redirecionar ou exibir uma mensagem de sucesso, se necessário
+                header("Location: ../../../public/admin/cliente/visualizar-clientes.php");
+                exit();
         } catch (PDOException $e) {
             // Verificar se a exceção é devido a uma restrição de chave estrangeira
             if ($e->getCode() == 23000 && $e->errorInfo[1] == 1451) {

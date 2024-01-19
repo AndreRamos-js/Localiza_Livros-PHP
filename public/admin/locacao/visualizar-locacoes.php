@@ -52,7 +52,7 @@
                             <a class="a-editar" href="editar-locacao.php?id=<?php echo $locacao['id']; ?>">Editar</a>
                             <form action="../../../biblioteca/actions/locacao/processa-deletar-locacao.php" method="post" style="display: inline-block;">
                                 <input type="hidden" name="id_locacao" value="<?php echo $locacao['id']; ?>">
-                                <button class="button-deletar" type="submit" onclick="return confirm('Tem certeza que deseja deletar a locação ID: <?php echo $locacao['id']; ?>?')">Deletar</button>
+                                <button class="button-deletar" type="submit" onclick="return confirm('Tem certeza que deseja deletar a locação do cliente: <?php echo $locacaoController->getNomeClienteById($locacao['id_cliente']); ?>?')">Deletar</button>
                             </form>
                         </td>
                     </tr>

@@ -9,11 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica se o ID do livro foi enviado
     if (isset($_POST['id_livro'])) {
         $livroId = $_POST['id_livro'];
-    
+
         try {
             // Código para excluir o livro do banco de dados
             $livroController->delete($livroId);
-            // Redirecionar ou exibir uma mensagem de sucesso, se necessário
+                header("Location: ../../../public/admin/livro/visualizar-livros.php");
+                exit();
         } catch (PDOException $e) {
             // Verificar se a exceção é devido a uma restrição de chave estrangeira
             if ($e->getCode() == 23000 && $e->errorInfo[1] == 1451) {
@@ -26,4 +27,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-?>
